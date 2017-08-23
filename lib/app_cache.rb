@@ -17,7 +17,13 @@ module AppCache
         else
           @storage = AppCache::LocalFileCache.new(options[:file_path])
       end
-      @storage
+      #更新缓存
+      AppCache::SystemParam.cache_update
+    end
+
+    def sys_params_cache
+      h_params = AppCache::SystemParam.get_params_cache
+      h_params
     end
 
     def sys_params_db
@@ -26,6 +32,11 @@ module AppCache
         h.store(sp.param_code, sp.param_value)
       end
       return h
+    end
+
+    def get_param_value(key)
+      val = AppCache::SystemParam.get_param_value(key)
+      val
     end
   end
 end
