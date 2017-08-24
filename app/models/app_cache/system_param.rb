@@ -31,8 +31,24 @@ module AppCache
       return h
     end
 
+    def self.get_params_db
+      h = {}
+      AppCache::SystemParam.all.each do |sp|
+        h.store(sp.param_code, sp.param_value)
+      end
+      h
+    end
+
+    def self.get_params
+      if AppCache.storage
+        self.get_params_cache
+      else
+        self.get_params_db
+      end
+    end
+
     def self.get_param_value(key)
-      params = self.get_params_cache
+      params = self.get_params
       param_val = params[key] || ''
       param_val
     end

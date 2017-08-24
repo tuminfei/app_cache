@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Terry"]
   spec.email         = ["tuminfei1981@gmail.com"]
 
-  spec.summary       = %q{App System params cache in file.}
-  spec.description   = %q{App System params cache in file.}
+  spec.summary       = %q{App System params cache in file or redis.}
+  spec.description   = %q{App System params cache in file or redis.}
   spec.homepage      = "https://github.com/tuminfei/app_cache"
   spec.license       = "MIT"
 
