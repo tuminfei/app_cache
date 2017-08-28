@@ -31,9 +31,28 @@ module AppCache
       return h
     end
 
+    def self.get_level_params_cache(level_id)
+      json = self.get_cache
+      h = {}
+      json.each do |sp|
+        if sp['param_level_id'].to_i == level_id
+          h.store(sp['param_code'], sp['param_value'])
+        end
+      end
+      return h
+    end
+
     def self.get_params_db
       h = {}
       AppCache::SystemParam.all.each do |sp|
+        h.store(sp.param_code, sp.param_value)
+      end
+      h
+    end
+
+    def self.get_level_params_db(level_id)
+      h = {}
+      AppCache::SystemParam.where(:param_level_id => level_id).each do |sp|
         h.store(sp.param_code, sp.param_value)
       end
       h
@@ -44,6 +63,14 @@ module AppCache
         self.get_params_cache
       else
         self.get_params_db
+      end
+    end
+
+    def self.get_level_params(level_id)
+      if AppCache.storage
+        self.get_level_params_cache(level_id)
+      else
+        self.get_level_params_db(level_id)
       end
     end
 

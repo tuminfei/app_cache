@@ -36,6 +36,11 @@ module AppCache
       vals
     end
 
+    def get_level_params(level_id)
+      vals = AppCache::SystemParam.get_level_params(level_id)
+      vals
+    end
+
     def get_param_value(key)
       val = AppCache::SystemParam.get_param_value(key)
       val
