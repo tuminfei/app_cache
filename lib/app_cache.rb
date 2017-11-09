@@ -13,7 +13,7 @@ module AppCache
     def new(cache_type, options = {})
       case cache_type
         when CACHE_TYPE_REDIS
-          @storage = Redis.new(:url => options[:url])
+          @storage = Redis.current.nil? ? Redis.new(:url => options[:url]) : Redis.current
         else
           @storage = AppCache::LocalFileCache.new(options[:file_path])
       end
