@@ -18,6 +18,7 @@ module AppCache
     end
 
     def self.get_cache
+      cache_update
       params = JSON.load AppCache.storage.get "system_params"
       params
     end
