@@ -8,9 +8,10 @@ module AppCache
   CACHE_TYPE_FILE = 'file'
 
   class << self
-    attr_accessor :storage
+    attr_accessor :storage, :cache_type
 
     def new(cache_type, options = {})
+      @cache_type = cache_type
       case cache_type
         when CACHE_TYPE_REDIS
           #@storage = Redis.current.nil? ? Redis.new(:url => options[:url]) : Redis.current
