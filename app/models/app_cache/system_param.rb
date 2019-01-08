@@ -6,14 +6,18 @@ module AppCache
     def auto_cache_update
       if AppCache.storage
         params = AppCache::SystemParam.all.to_json
-        AppCache.storage.del "system_params"
+        unless AppCache.cache_type == AppCache::CACHE_TYPE_REDIS
+          AppCache.storage.del "system_params"
+        end
         AppCache.storage.set("system_params", params)
       end
     end
 
     def self.cache_update
       params = AppCache::SystemParam.all.to_json
-      AppCache.storage.del "system_params"
+      unless AppCache.cache_type == AppCache::CACHE_TYPE_REDIS
+        AppCache.storage.del "system_params"
+      end
       AppCache.storage.set("system_params", params)
     end
 
